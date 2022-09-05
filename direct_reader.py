@@ -7,6 +7,7 @@ class DirectReader:
 
     def __init__(self, string: str):
         self.string = iter(string.replace(' ', ''))
+        self.string = iter(string.replace('.',''))
         self.input = set()
         self.rparPending = False
         self.Next()
@@ -16,6 +17,7 @@ class DirectReader:
             self.curr_char = next(self.string)
         except StopIteration:
             self.curr_char = None
+    
 
     def CreateTokens(self):
         while self.curr_char != None:
@@ -23,7 +25,7 @@ class DirectReader:
             if self.curr_char in LETTERS:
                 self.input.add(self.curr_char)
                 yield Token(TokenType.LETTER, self.curr_char)
-
+                
                 self.Next()
 
                 # para finalizar, se verifica si necesitamos agregar un token append

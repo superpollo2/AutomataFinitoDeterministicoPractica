@@ -6,6 +6,7 @@ LETTERS = 'abcdefghijklmnopqrstuvwxyz01234567890.'
 class Reader:
     def __init__(self, string: str):
         self.string = iter(string.replace(' ', ''))
+        self.string = iter(string.replace('.',''))
         self.input = set()
         self.Next()
 
