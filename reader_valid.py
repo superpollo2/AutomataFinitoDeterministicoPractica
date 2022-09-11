@@ -1,7 +1,7 @@
 LETTERS = 'abcdefghijklmnopqrstuvwxyz01234567890'
 
 errorList = []
-x = ''
+
 class ValidExpresion:
     global errorList
     def __init__(self, string: str):
@@ -13,7 +13,6 @@ class ValidExpresion:
 
 
     def Next(self):
-        global x
         try:
             
             self.curr_char = next(self.string)
@@ -28,7 +27,6 @@ class ValidExpresion:
             self.ntListaE()
             return
         else:
-
             errorList.append(
             "ErrorType: simbolo no permitido, se esperaba un '(', una letra o numero al inicio de la expresion o hay un par de parentesis vacio ")
 
@@ -54,7 +52,6 @@ class ValidExpresion:
             self.ntListaT()
             return
         else:
-
             errorList.append(
                 "ErrorType:  simbolo no permitido, se esperaba  una letra o un numero ")
 
@@ -80,7 +77,6 @@ class ValidExpresion:
             self.ntMod()
             return
         else:
-
             errorList.append(
                 "ErrorType: simbolo  no  permitido, se esperaba un letra o numero' ")
 
@@ -112,7 +108,6 @@ class ValidExpresion:
 
 
     def listError (self):
-        print("dsfsafd")
         return errorList
     
 
