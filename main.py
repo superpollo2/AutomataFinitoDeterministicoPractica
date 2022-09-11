@@ -2,7 +2,7 @@ from asyncio.windows_events import NULL
 
 from pickle import FALSE
 from reader_valid import ValidExpresion
-from setuptools import Command
+
 from reader import Reader
 from parsing import Parser
 from afd import DDFA
