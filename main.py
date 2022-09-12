@@ -2,7 +2,6 @@ from asyncio.windows_events import NULL
 
 from pickle import FALSE
 from reader_valid import ValidExpresion
-
 from reader import Reader
 from parsing import Parser
 from afd import DDFA
@@ -93,7 +92,7 @@ def genAFD():
             print("esa vaina esta mala")
             for error in error:
                 err = err + error + "\n"
-            messagebox.showinfo("Advertencia", err)
+            messagebox.showinfo("ErrorType: simbolo  no  permitido", err)
             
         else:
             try:

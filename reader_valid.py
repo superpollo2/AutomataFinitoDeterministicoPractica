@@ -28,7 +28,7 @@ class ValidExpresion:
             return
         else:
             errorList.append(
-            "ErrorType: simbolo no permitido, se esperaba un '(', una letra o numero al inicio de la expresion o hay un par de parentesis vacio ")
+            " se esperaba un '(', una letra o numero al inicio de la expresion o hay un par de parentesis vacio ")
 
 
     def ntListaE(self):
@@ -43,7 +43,7 @@ class ValidExpresion:
         else:
 
             errorList.append(
-                "ErrorType: simbolo no  permitido, se esperaba un '|' o ')' ")
+                "se esperaba un '|' o ')' ")
 
 
     def ntT(self):
@@ -53,7 +53,7 @@ class ValidExpresion:
             return
         else:
             errorList.append(
-                "ErrorType:  simbolo no permitido, se esperaba  una letra o un numero ")
+                "se esperaba  una letra o un numero ")
 
 
     def ntListaT(self):
@@ -68,7 +68,7 @@ class ValidExpresion:
             return
         else:
             errorList.append(
-                "ErrorType: simbolo no permitido, se esperaba un '|' o un '.' entre simbolos o expresiones o no cerro un paretesis ")
+                "se esperaba un '|' o un '.' entre simbolos o expresiones o no cerro un paretesis ")
 
 
     def ntP(self):
@@ -78,7 +78,7 @@ class ValidExpresion:
             return
         else:
             errorList.append(
-                "ErrorType: simbolo  no  permitido, se esperaba un letra o numero' ")
+                "se esperaba un letra o numero' ")
 
 
     def ntOpt(self):
@@ -93,7 +93,7 @@ class ValidExpresion:
             return
         else:
             errorList.append(
-                "ErrorType: simbolo no  permitido, se esperaba una letra o numero ")
+                "permitido, se esperaba una letra o numero ")
 
 
     def ntMod(self):
