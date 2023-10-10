@@ -13,22 +13,7 @@ class Parser:
         except StopIteration:
             self.curr_token = None
 
-    def NewSymbol(self):
-        token = self.curr_token
-
-        if token.type == TokenType.LPAR:
-            self.Next()
-            res = self.Expression()
-
-            if self.curr_token.type != TokenType.RPAR:
-                raise Exception('Sin paréntesis derecho para la expresión!')
-
-            self.Next()
-            return res
-
-        elif token.type == TokenType.LETTER:
-            self.Next()
-            return Letter(token.value)
+   
 
     def NewOperator(self):
         res = self.NewSymbol()
