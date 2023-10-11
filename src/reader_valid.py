@@ -1,4 +1,4 @@
-LETTERS = 'abcdefghijklmnopqrstuvwxyz01234567890'
+LETTERS = 'abcdefghijklmnopqrstuvwxyz0123456789'
 
 errorList = []
 
@@ -7,14 +7,12 @@ class ValidExpresion:
     def __init__(self, string: str):
         print(string)
         self.string = iter(string.replace(' ', ''))
-        self.input = set()
-        self.rparPending = False
+        self.curr_char = None
         self.Next()
 
 
     def Next(self):
         try:
-            
             self.curr_char = next(self.string)
             print(self.curr_char)
         except StopIteration:
@@ -25,35 +23,19 @@ class ValidExpresion:
         if (self.curr_char == '(' or self.curr_char in LETTERS):
             self.ntT()
             self.ntListaE()
-            return
-        else:
-            errorList.append(
-            " se esperaba un '(', una letra o numero al inicio de la expresion o hay un par de parentesis vacio ")
 
 
     def ntListaE(self):
-        
         if(self.curr_char == '|'):
             self.Next()
             self.ntT()
             self.ntListaE()
-            return
-        if (self.curr_char == ')' or self.curr_char == None or self.curr_char == '('):
-            return
-        else:
-
-            errorList.append(
-                "se esperaba un '|' o ')' ")
 
 
     def ntT(self):
         if (self.curr_char == '(' or self.curr_char in LETTERS):
             self.ntP()
             self.ntListaT()
-            return
-        else:
-            errorList.append(
-                "se esperaba  una letra o un numero ")
 
 
     def ntListaT(self):
@@ -61,53 +43,36 @@ class ValidExpresion:
             self.Next()
             self.ntP()
             self.ntListaT()
-            return
-        if(self.curr_char == '|' or self.curr_char == ')' or self.curr_char == '(' ): #no funciona cuando hay un cierre parentesis nono aiuda
-            return
-        if(self.curr_char == None):
-            return
-        else:
-            errorList.append(
-                "se esperaba un '|' o un '.' entre simbolos o expresiones o no cerro un paretesis ")
 
 
     def ntP(self):
-        if (self.curr_char == '(' or self.curr_char in LETTERS):
-            self.ntOpt()
-            self.ntMod()
-            return
-        else:
-            errorList.append(
-                "se esperaba un letra o numero' ")
-
-
-    def ntOpt(self):
-        if(self.curr_char == '('):
+        if (self.curr_char == '('):
             self.Next()
             self.ntE()
             if (self.curr_char == ')'):
                 self.Next()
-                return
-        if(self.curr_char in LETTERS):
+            else:
+                errorList.append("Se esperaba un ')' después de una expresión.")
+        elif (self.curr_char in LETTERS):
             self.Next()
-            return
+            self.ntMod()
         else:
-            errorList.append(
-                "permitido, se esperaba una letra o numero ")
+            errorList.append("Se esperaba un '(' o una letra o número.")
 
 
     def ntMod(self):
         if(self.curr_char == '*'):
             self.Next()
-            return
-        if(self.curr_char == '+'):
+        elif(self.curr_char == '+'):
             self.Next()
-            return
-        if(self.curr_char == '.' or self.curr_char == None ):
-            return
 
 
-    def listError (self):
+    def listError(self):
         return errorList
+
+def listError (self):
+    return errorList
     
+
+
 

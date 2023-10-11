@@ -1,13 +1,9 @@
-from asyncio.windows_events import NULL
 
-from pickle import FALSE
 from reader_valid import ValidExpresion
 from reader import Reader
 from parsing import Parser
 from afd import DDFA
-from direct_reader import DirectReader
-from cgitb import text
-from tkinter import CENTER, messagebox, ttk as ttk
+from tkinter import  messagebox, ttk as ttk
 import tkinter
 from tkinter import StringVar, font
 from turtle import title
@@ -81,41 +77,31 @@ def genAFD():
     global direct_tree
     global direct_reader
 
-    err = ''
     if reguExpresion.get() == '':
         messagebox.showinfo("Advertencia", "Campo vacio\npor favor corrijalo")
     if reguExpresion.get() != '':
         valid = ValidExpresion(reguExpresion.get())
         valid.ntE()
-        error = valid.listError()
-        if(len(error)):
-            print("esa vaina esta mala")
-            for error in error:
-                err = err + error + "\n"
-            messagebox.showinfo("ErrorType: simbolo  no  permitido", err)
+        
+        errors = valid.listError()
+        if len(errors):
+            print("La expresión es inválida. Errores encontrados:")
+            for error in errors:
+                print(error)
+                messagebox.showinfo("ErrorType: simbolo  no  permitido",error)
             
         else:
             try:
+                print("La expresión es válida.")
                 reader = Reader(reguExpresion.get())
                 tokens = reader.CreateTokens()
                 parser = Parser(tokens)
                 tree = parser.Parse()
-
-                direct_reader = DirectReader(reguExpresion.get())
-                direct_tokens = direct_reader.CreateTokens()
-                direct_parser = Parser(direct_tokens)
-                direct_tree = direct_parser.Parse()
-                messagebox.showinfo("Aceptada", tree)
-                validStringButton.config(state='normal')
-                validStringEntry.config(state='normal')
-
-            except AttributeError as e:
-                messagebox.showinfo(
-                "ERROR:", "Expresión invalida (missing parenthesis)")
+               
 
             except Exception as e:
                 messagebox.showinfo("ERRPR: ", e)
-            pass
+            
 
 
 def valid():

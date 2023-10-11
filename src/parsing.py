@@ -10,6 +10,7 @@ class Parser:
     def Next(self):
         try:
             self.curr_token = next(self.tokens)
+            print(self.curr_token)
         except StopIteration:
             self.curr_token = None
 
@@ -19,7 +20,6 @@ class Parser:
         if token.type == TokenType.LPAR:
             self.Next()
             res = self.Expression()
-
             if self.curr_token.type != TokenType.RPAR:
                 raise Exception('Sin paréntesis derecho para la expresión!')
 
@@ -30,38 +30,37 @@ class Parser:
             self.Next()
             return Letter(token.value)
 
-    def NewOperator(self):
+    def Factor(self):
         res = self.NewSymbol()
 
         while self.curr_token != None and \
-                (
-                    self.curr_token.type == TokenType.KLEENE or
-                    self.curr_token.type == TokenType.PLUS 
-                ):
+                self.curr_token.type in (TokenType.KLEENE, TokenType.PLUS):
             if self.curr_token.type == TokenType.KLEENE:
                 self.Next()
                 res = Kleene(res)
-            else:
+            elif self.curr_token.type == TokenType.PLUS:
                 self.Next()
                 res = Plus(res)
 
         return res
 
-    def Expression(self):
-        res = self.NewOperator()
+    def Term(self):
+        res = self.Factor()
 
         while self.curr_token != None and \
-                (
-                    self.curr_token.type == TokenType.APPEND or
-                    self.curr_token.type == TokenType.OR
-                ):
-            if self.curr_token.type == TokenType.OR:
-                self.Next()
-                res = Or(res, self.NewOperator())
+                self.curr_token.type == TokenType.APPEND:
+            self.Next()
+            res = Append(res, self.Factor())
 
-            elif self.curr_token.type == TokenType.APPEND:
-                self.Next()
-                res = Append(res, self.NewOperator())
+        return res
+
+    def Expression(self):
+        res = self.Term()
+
+        while self.curr_token != None and \
+                self.curr_token.type == TokenType.OR:
+            self.Next()
+            res = Or(res, self.Term())
 
         return res
 
