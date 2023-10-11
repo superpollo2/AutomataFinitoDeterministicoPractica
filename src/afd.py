@@ -24,15 +24,16 @@ class DDFA:
         self.states = iter(ESTADOS)
         try:
             self.symbols.remove('e') #lamda
-        except:
+        except  Exception as e:
+            print(f"Ocurrió una excepción: {e}")
             pass
 
         # Inicialización de contrucción AF
-        self.parseTree(self.tree)
+        self.parse_tree(self.tree)
         self.calcFollowPos()
 
 
-    def calcFollowPos(self):
+    def calc_follow_pos(self):
         try:
             for node in self.nodes:
                 if node.value == '*':
@@ -75,7 +76,7 @@ class DDFA:
         if self.augmented_state in new_state:
             self.accepting_states.update(next_state)
 
-    def CalcNewStates(self, state, curr_state):
+    def calc_new_states(self, state, curr_state):
         if not self.states:
             self.states.append(set(state))
 
@@ -95,21 +96,21 @@ class DDFA:
                 self.update_accepting_states(new_state, next_state)
                 self.CalcNewStates(new_state, next_state)
 
-    def parseTree(self, node):
+    def parse_tree(self, node):
         method_name = node.__class__.__name__ + 'Node'
         method = getattr(self, method_name)
         return method(node)
 
-    def letterNode(self, node):
+    def letter_node(self, node):
         new_node = Node(self.iter, [self.iter], [
                         self.iter], value=node.value, nullable=False)
         self.nodes.append(new_node)
         return new_node
 
-    def orNode(self, node):
-        node_a = self.parseTree(node.a)
+    def or_node(self, node):
+        node_a = self.parse_tree(node.a)
         self.iter += 1
-        node_b = self.parseTree(node.b)
+        node_b = self.parse_tree(node.b)
 
         is_nullable = node_a.nullable or node_b.nullable
         firstpos = node_a.firstpos + node_b.firstpos
@@ -119,10 +120,10 @@ class DDFA:
                                is_nullable, '|', node_a, node_b))
         return Node(None, firstpos, lastpos, is_nullable, '|', node_a, node_b)
 
-    def appendNode(self, node):
-        node_a = self.parseTree(node.a)
+    def append_node(self, node):
+        node_a = self.parse_tree(node.a)
         self.iter += 1
-        node_b = self.parseTree(node.b)
+        node_b = self.parse_tree(node.b)
 
         is_nullable = node_a.nullable and node_b.nullable
         if node_a.nullable:
@@ -140,19 +141,19 @@ class DDFA:
 
         return Node(None, firstpos, lastpos, is_nullable, '.', node_a, node_b)
 
-    def kleeneNode(self, node):
-        node_a = self.parseTree(node.a)
+    def kleene_node(self, node):
+        node_a = self.parse_tree(node.a)
         firstpos = node_a.firstpos
         lastpos = node_a.lastpos
         self.nodes.append(Node(None, firstpos, lastpos, True, '*', node_a))
         return Node(None, firstpos, lastpos, True, '*', node_a)
 
     def PlusNode(self, node):
-        node_a = self.parseTree(node.a)
+        node_a = self.parse_tree(node.a)
 
         self.iter += 1
 
-        node_b = self.kleeneNode(node)
+        node_b = self.kleene_node(node)
 
         is_nullable = node_a.nullable and node_b.nullable
         if node_a.nullable:
@@ -172,7 +173,7 @@ class DDFA:
 
     
 
-    def evalRegex(self):
+    def eval_regex(self):
         curr_state = 'A'
         for symbol in self.regex:
 
