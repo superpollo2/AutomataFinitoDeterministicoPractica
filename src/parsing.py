@@ -1,7 +1,10 @@
 from tokens import TokenType
 from nodes import Letter, Append, Or, Kleene, Plus
 
-
+class UnknownOperatorError(Exception):
+    def __init__(self, operator_type):
+        self.operator_type = operator_type
+        super().__init__('Operador desconocido: {}'.format(operator_type))
 class Parser:
     def __init__(self, tokens):
         self.tokens = iter(tokens)
@@ -43,7 +46,7 @@ class Parser:
                 res = Plus(res)
             else:
                 # Añade esta parte para manejar errores si encuentras un operador desconocido
-                raise Exception('Operador desconocido: {}'.format(self.curr_token.type))
+                raise UnknownOperatorError(self.curr_token.type)
 
         return res
 

@@ -1,4 +1,5 @@
 from tokens import Token, TokenType
+from parsing import UnknownOperatorError
 
 LETTERS = 'abcdefghijklmnopqrstuvwxyz01234567890.'
 
@@ -33,7 +34,7 @@ class DirectReader:
             elif self.curr_char in '*+':
                 yield self.handle_repetitions()
             else:
-                raise Exception(f'Invalid entry: {self.curr_char}')
+                raise UnknownOperatorError(self.curr_char)
 
         yield Token(TokenType.APPEND, '.')
         yield Token(TokenType.LETTER, '#')
