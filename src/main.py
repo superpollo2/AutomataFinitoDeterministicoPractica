@@ -1,3 +1,4 @@
+FONT_NAME = 'Inria Sans Bold'
 
 from reader_valid import ValidExpresion
 from reader import Reader
@@ -10,77 +11,77 @@ from turtle import title
 
 # var global
 window = tkinter.Tk()
-reguExpresion = StringVar()
-validString = StringVar()
+regu_expresion = StringVar()
+valid_string = StringVar()
 
 # interfaz grafica
 
 
-def createGUI():
-    global validStringButton
-    global validStringEntry
+def create_gui():
+    global valid_string_button
+    global valid_string_entry
     window.resizable(0, 0)
     window.geometry('500x250+700+250')
     window.title("Practica l")
     window.config(bg='white')
-    mainFrame = tkinter.Frame(window)
-    mainFrame.pack()
-    mainFrame.config(width=480, height=320, bg='white')
+    main_frame = tkinter.Frame(window)
+    main_frame.pack()
+    main_frame.config(width=480, height=320, bg='white')
 
     titl = tkinter.Label(
-        mainFrame, text="CONSTRUCIÓN DE AFD EN BASE A UN EXPRESIÓN REGULAR")
+        main_frame, text="CONSTRUCIÓN DE AFD EN BASE A UN EXPRESIÓN REGULAR")
     titl.grid(column=0, row=0, padx=20, pady=20, columnspan=4)
     titl.config(bg='white', font=('Inria Sans Bold', 12))
 
-    reguExpresionLabel = tkinter.Label(mainFrame, text="Expresión regular")
-    reguExpresionLabel.grid(column=0, row=1)
-    reguExpresionLabel.config(bg='white', font=('Inria Sans Regular', 12))
-    validStringLabel = tkinter.Label(mainFrame, text="String para comprobar")
-    validStringLabel.grid(column=0, row=2, padx=10)
-    validStringLabel.config(bg='white', font=('Inria Sans Regular', 12))
+    regu_expresion_label = tkinter.Label(main_frame, text="Expresión regular")
+    regu_expresion_label.grid(column=0, row=1)
+    regu_expresion_label.config(bg='white', font=(FONT_NAME, 12))
+    valid_string_label = tkinter.Label(main_frame, text="String para comprobar")
+    valid_string_label.grid(column=0, row=2, padx=10)
+    valid_string_label.config(bg='white', font=(FONT_NAME, 12))
 
     # entradas de texto
 
-    reguExpresionEntry = tkinter.Entry(mainFrame, textvariable=reguExpresion)
-    reguExpresionEntry.grid(column=1, row=1, columnspan=2)
-    reguExpresionEntry.config(width=25)
+    regu_expresion_entry = tkinter.Entry(main_frame, textvariable=regu_expresion)
+    regu_expresion_entry.grid(column=1, row=1, columnspan=2)
+    regu_expresion_entry.config(width=25)
 
-    validStringEntry = tkinter.Entry(mainFrame, textvariable=validString,)
-    validStringEntry.grid(column=1, row=2, ipadx=2,
+    valid_string_entry = tkinter.Entry(main_frame, textvariable=valid_string,)
+    valid_string_entry.grid(column=1, row=2, ipadx=2,
                           ipady=2, padx=5, pady=10, columnspan=2)
-    validStringEntry.config(state='disabled', width=25)
+    valid_string_entry.config(state='disabled', width=25)
 
     # btn
 
-    genAFDButton = tkinter.Button(
-        mainFrame, text="Generar AFD", command=genAFD)
-    genAFDButton.grid(column=3, row=1, ipadx=2, ipady=2, padx=10, pady=10)
-    genAFDButton.config(bg='#52CBD2', fg='#FFFDFD', font=('Inria Sans Bold', 12), relief='flat',
+    gen_afd_button = tkinter.Button(
+        main_frame, text="Generar AFD", command=gen_afd)
+    gen_afd_button.grid(column=3, row=1, ipadx=2, ipady=2, padx=10, pady=10)
+    gen_afd_button.config(bg='#52CBD2', fg='#FFFDFD', font=('Inria Sans Bold', 12), relief='flat',
                         activebackground='#42A5AB', activeforeground='#FFFDFD', borderwidth=2)
 
-    validStringButton = tkinter.Button(
-        mainFrame, text="Validar", command=valid)
-    validStringButton.grid(column=3, row=2, ipadx=2, ipady=2, padx=10, pady=10)
-    validStringButton.config(bg='#52CBD2', fg='#FFFDFD', font=('Inria Sans Bold', 12), relief='flat',
+    valid_string_button = tkinter.Button(
+        main_frame, text="Validar", command=valid)
+    valid_string_button.grid(column=3, row=2, ipadx=2, ipady=2, padx=10, pady=10)
+    valid_string_button.config(bg='#52CBD2', fg='#FFFDFD', font=('Inria Sans Bold', 12), relief='flat',
                              activebackground='#42A5AB', activeforeground='#FFFDFD', borderwidth=2, state='disabled', width=10)
 
-    clearButton = tkinter.Button(mainFrame, text="Limpiar", command=clear)
-    clearButton.grid(column=0, row=3, ipadx=2, ipady=2,
+    clear_button = tkinter.Button(main_frame, text="Limpiar", command=clear)
+    clear_button.grid(column=0, row=3, ipadx=2, ipady=2,
                      padx=10, pady=10, columnspan=4)
-    clearButton.config(bg='#52CBD2', fg='#FFFDFD', font=('Inria Sans Bold', 12), relief='flat',
+    clear_button.config(bg='#52CBD2', fg='#FFFDFD', font=('Inria Sans Bold', 12), relief='flat',
                        activebackground='#42A5AB', activeforeground='#FFFDFD', borderwidth=2, width=15)
     window.mainloop()
 
 
-def genAFD():
+def gen_afd():
 
     global direct_tree
     global direct_reader
 
-    if reguExpresion.get() == '':
+    if regu_expresion.get() == '':
         messagebox.showinfo("Advertencia", "Campo vacio\npor favor corrijalo")
-    if reguExpresion.get() != '':
-        valid = ValidExpresion(reguExpresion.get())
+    if regu_expresion.get() != '':
+        valid = ValidExpresion(regu_expresion.get())
         valid.ntE()
         
         errors = valid.listError()
@@ -93,10 +94,13 @@ def genAFD():
         else:
             try:
                 print("La expresión es válida.")
-                reader = Reader(reguExpresion.get())
+                reader = Reader(regu_expresion.get())
                 tokens = reader.create_tokens()
                 parser = Parser(tokens)
-                tree = parser.parse()
+                direct_tree = direct_parser.Parse()
+                messagebox.showinfo("Aceptada", tree)
+                valid_string_button.config(state='normal')
+                valid_string_entry.config(state='normal')
                
 
             except Exception as e:
@@ -105,25 +109,24 @@ def genAFD():
 
 
 def valid():
-    if reguExpresion.get() == '':
+    if regu_expresion.get() == '':
         messagebox.showinfo("Advertencia", "Campo vacio")
     else:
-        ddfa = DDFA(direct_tree, direct_reader.get_symbols(), validString.get())
+        ddfa = DDFA(direct_tree, direct_reader.get_symbols(), valid_string.get())
         ddfa_regex = ddfa.EvalRegex()
         messagebox.showinfo(
             "Pertenece la cadena a la expresión regular?", ddfa_regex)
-        validString.set("")
-        pass
-
+        valid_string.set("")
+        
 
 def clear():
-    reguExpresion.set("")
-    validString.set("")
-    validStringButton.config(state='disabled')
-    validStringEntry.config(state='disabled')
+    regu_expresion.set("")
+    valid_string.set("")
+    valid_string_button.config(state='disabled')
+    valid_string_entry.config(state='disabled')
 
-    pass
+    
 
 
 if __name__ == "__main__":
-    createGUI()
+    create_gui()

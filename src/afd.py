@@ -26,7 +26,7 @@ class DDFA:
             self.symbols.remove('e') #lamda
         except  Exception as e:
             print(f"Ocurrió una excepción: {e}")
-            pass
+        
 
         # Inicialización de contrucción AF
         self.parse_tree(self.tree)
@@ -57,7 +57,7 @@ class DDFA:
         self.augmented_state = self.nodes[-1]._id
 
         # Usamos recursión para leer toda la expresión 
-        self.calcNewStates(initial_state, next(self.states))
+        self.calc_new_states(initial_state, next(self.states))
 
     def add_state(self, state):
         if state not in self.states and state:
@@ -148,7 +148,7 @@ class DDFA:
         self.nodes.append(Node(None, firstpos, lastpos, True, '*', node_a))
         return Node(None, firstpos, lastpos, True, '*', node_a)
 
-    def PlusNode(self, node):
+    def plus_node(self, node):
         node_a = self.parse_tree(node.a)
 
         self.iter += 1
@@ -177,7 +177,7 @@ class DDFA:
         curr_state = 'A'
         for symbol in self.regex:
 
-            if not symbol in self.symbols:
+            if symbol not in self.symbols:
                 return 'No'
 
             try:
