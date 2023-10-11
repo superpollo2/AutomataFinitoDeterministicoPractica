@@ -1,5 +1,5 @@
 
-ESTADOS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+lETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 from node import Node
 
 class DDFA:
@@ -21,7 +21,7 @@ class DDFA:
         self.augmented_state = None
         self.iter = 1
 
-        self.states = iter(ESTADOS)
+        self.states = iter(lETTERS)
         try:
             self.symbols.remove('e') #lamda
         except  Exception as e:
@@ -49,7 +49,7 @@ class DDFA:
             print(f"Ocurrió una excepción: {e}")
             
 
-        # Inicia la generación de estados
+        # Inicia la generación de lETTERS
         initial_state = self.nodes[-1].firstpos
 
         # nodos que tienen simbolos
@@ -191,6 +191,3 @@ class DDFA:
         return 'Yes' if curr_state in self.accepting_states else 'No'
 
     
-
-
-

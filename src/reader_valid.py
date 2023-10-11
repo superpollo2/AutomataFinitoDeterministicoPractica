@@ -8,10 +8,10 @@ class ValidExpresion:
         print(string)
         self.string = iter(string.replace(' ', ''))
         self.curr_char = None
-        self.Next()
+        self.next()
 
 
-    def Next(self):
+    def next(self):
         try:
             self.curr_char = next(self.string)
             print(self.curr_char)
@@ -19,59 +19,58 @@ class ValidExpresion:
             self.curr_char = None
 
 
-    def ntE(self):
+    def nt_e(self):
         if (self.curr_char == '(' or self.curr_char in LETTERS):
-            self.ntT()
-            self.ntListaE()
+            self.nt_t()
+            self.nt_lista_e()
 
 
-    def ntListaE(self):
+    def nt_lista_e(self):
         if(self.curr_char == '|'):
-            self.Next()
-            self.ntT()
-            self.ntListaE()
+            self.next()
+            self.nt_t()
+            self.nt_lista_e()
 
 
-    def ntT(self):
+    def nt_t(self):
         if (self.curr_char == '(' or self.curr_char in LETTERS):
-            self.ntP()
-            self.ntListaT()
+            self.nt_p()
+            self.nt_lista_t()
 
 
-    def ntListaT(self):
+    def nt_lista_t(self):
         if(self.curr_char == '.'):
-            self.Next()
-            self.ntP()
-            self.ntListaT()
+            self.next()
+            self.nt_p()
+            self.nt_lista_t()
 
 
-    def ntP(self):
+    def nt_p(self):
         if (self.curr_char == '('):
-            self.Next()
-            self.ntE()
+            self.next()
+            self.nt_e()
             if (self.curr_char == ')'):
-                self.Next()
+                self.next()
             else:
                 errorList.append("Se esperaba un ')' después de una expresión.")
         elif (self.curr_char in LETTERS):
-            self.Next()
-            self.ntMod()
+            self.next()
+            self.nt_mod()
         else:
             errorList.append("Se esperaba un '(' o una letra o número.")
 
 
-    def ntMod(self):
+    def nt_mod(self):
         if(self.curr_char == '*'):
-            self.Next()
+            self.next()
         elif(self.curr_char == '+'):
-            self.Next()
+            self.next()
 
 
-    def listError(self):
+    def list_error(self):
         return errorList
 
-def listError (self):
-    return errorList
+
     
 
 

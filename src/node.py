@@ -11,11 +11,11 @@ class Node:
 
     def __repr__(self):
         return f'''
-    id: {self._id}
-    value: {self.value}
-    firstpos: {self.firstpos}
-    lastpos: {self.lastpos}
-    followpos: {self.followpos}
-    nullabe: {self.nullable}
-    '''
-    #puede ser que no funcione
+            id: {self._id}
+            value: {self.value}
+            firstpos: {self.firstpos}
+            lastpos: {self.lastpos}
+            followpos: {self.followpos}
+            nullabe: {self.nullable}
+        '''
+    # puede ser que no funcione

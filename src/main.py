@@ -94,9 +94,9 @@ def genAFD():
             try:
                 print("La expresión es válida.")
                 reader = Reader(reguExpresion.get())
-                tokens = reader.CreateTokens()
+                tokens = reader.create_tokens()
                 parser = Parser(tokens)
-                tree = parser.Parse()
+                tree = parser.parse()
                
 
             except Exception as e:
@@ -108,7 +108,7 @@ def valid():
     if reguExpresion.get() == '':
         messagebox.showinfo("Advertencia", "Campo vacio")
     else:
-        ddfa = DDFA(direct_tree, direct_reader.GetSymbols(), validString.get())
+        ddfa = DDFA(direct_tree, direct_reader.get_symbols(), validString.get())
         ddfa_regex = ddfa.EvalRegex()
         messagebox.showinfo(
             "Pertenece la cadena a la expresión regular?", ddfa_regex)
