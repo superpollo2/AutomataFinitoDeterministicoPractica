@@ -97,11 +97,15 @@ def gen_afd():
                 reader = Reader(regu_expresion.get())
                 tokens = reader.create_tokens()
                 parser = Parser(tokens)
-                direct_tree = direct_parser.Parse()
+                tree = parser.parse()
+
+                direct_reader = direct_reader(regu_expresion.get())
+                direct_tokens = direct_reader.create_tokens()
+                direct_parser = Parser(direct_tokens)
+                direct_tree = direct_parser.parse()
                 messagebox.showinfo("Aceptada", tree)
                 valid_string_button.config(state='normal')
                 valid_string_entry.config(state='normal')
-               
 
             except Exception as e:
                 messagebox.showinfo("ERRPR: ", e)
