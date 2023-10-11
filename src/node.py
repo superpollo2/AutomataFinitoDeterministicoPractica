@@ -18,3 +18,4 @@ class Node:
     followpos: {self.followpos}
     nullabe: {self.nullable}
     '''
+    #puede ser que no funcione
