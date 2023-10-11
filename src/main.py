@@ -1,4 +1,4 @@
-FONT_NAME = 'Inria Sans Bold'
+FONT_NAME = FONT_NAME
 
 from reader_valid import ValidExpresion
 from reader import Reader
@@ -31,7 +31,7 @@ def create_gui():
     titl = tkinter.Label(
         main_frame, text="CONSTRUCIÓN DE AFD EN BASE A UN EXPRESIÓN REGULAR")
     titl.grid(column=0, row=0, padx=20, pady=20, columnspan=4)
-    titl.config(bg='white', font=('Inria Sans Bold', 12))
+    titl.config(bg='white', font=(FONT_NAME, 12))
 
     regu_expresion_label = tkinter.Label(main_frame, text="Expresión regular")
     regu_expresion_label.grid(column=0, row=1)
@@ -56,19 +56,19 @@ def create_gui():
     gen_afd_button = tkinter.Button(
         main_frame, text="Generar AFD", command=gen_afd)
     gen_afd_button.grid(column=3, row=1, ipadx=2, ipady=2, padx=10, pady=10)
-    gen_afd_button.config(bg='#52CBD2', fg='#FFFDFD', font=('Inria Sans Bold', 12), relief='flat',
+    gen_afd_button.config(bg='#52CBD2', fg='#FFFDFD', font=(FONT_NAME, 12), relief='flat',
                         activebackground='#42A5AB', activeforeground='#FFFDFD', borderwidth=2)
 
     valid_string_button = tkinter.Button(
         main_frame, text="Validar", command=valid)
     valid_string_button.grid(column=3, row=2, ipadx=2, ipady=2, padx=10, pady=10)
-    valid_string_button.config(bg='#52CBD2', fg='#FFFDFD', font=('Inria Sans Bold', 12), relief='flat',
+    valid_string_button.config(bg='#52CBD2', fg='#FFFDFD', font=(FONT_NAME, 12), relief='flat',
                              activebackground='#42A5AB', activeforeground='#FFFDFD', borderwidth=2, state='disabled', width=10)
 
     clear_button = tkinter.Button(main_frame, text="Limpiar", command=clear)
     clear_button.grid(column=0, row=3, ipadx=2, ipady=2,
                      padx=10, pady=10, columnspan=4)
-    clear_button.config(bg='#52CBD2', fg='#FFFDFD', font=('Inria Sans Bold', 12), relief='flat',
+    clear_button.config(bg='#52CBD2', fg='#FFFDFD', font=(FONT_NAME, 12), relief='flat',
                        activebackground='#42A5AB', activeforeground='#FFFDFD', borderwidth=2, width=15)
     window.mainloop()
 
