@@ -30,7 +30,7 @@ class DDFA:
 
         # Inicialización de contrucción AF
         self.parse_tree(self.tree)
-        self.calcFollowPos()
+        self.calc_follow_pos()
 
 
     def calc_follow_pos(self):
@@ -57,12 +57,12 @@ class DDFA:
         self.augmented_state = self.nodes[-1]._id
 
         # Usamos recursión para leer toda la expresión 
-        self.calcNewStates(initial_state, next(self.STATES))
+        self.calcNewStates(initial_state, next(self.states))
 
     def add_state(self, state):
         if state not in self.states and state:
             self.states.append(state)
-            next_state = next(self.STATES)
+            next_state = next(self.states)
             self.trans_func[next_state] = {}
             return next_state
         return None
@@ -84,7 +84,7 @@ class DDFA:
             self.accepting_states.update(curr_state)
 
         for symbol in self.symbols:
-            same_symbols = list(filter(lambda x: x.value == symbol and x._id in state, self.nodes))
+            same_symbols = list(filter(lambda x, symbol=symbol: x.value == symbol and x._id in state, self.nodes))
             new_state = set()
 
             for node in same_symbols:
@@ -94,7 +94,7 @@ class DDFA:
             if next_state:
                 self.update_transition_function(curr_state, symbol, next_state)
                 self.update_accepting_states(new_state, next_state)
-                self.CalcNewStates(new_state, next_state)
+                self.calc_new_states(new_state, next_state)
 
     def parse_tree(self, node):
         method_name = node.__class__.__name__ + 'Node'
