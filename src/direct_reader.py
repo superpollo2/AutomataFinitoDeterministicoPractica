@@ -20,77 +20,40 @@ class DirectReader:
     
 
     def create_tokens(self):
-        while self.curr_char != None:
-
+        while self.curr_char is not None:
             if self.curr_char in LETTERS:
                 self.input.add(self.curr_char)
                 yield Token(TokenType.LETTER, self.curr_char)
-                
                 self.next()
-
-                # para finalizar, se verifica si necesitamos agregar un token append
-                if self.curr_char != None and \
-                        (self.curr_char in LETTERS or self.curr_char == '('):
-                    yield Token(TokenType.APPEND, '.')
-
+            elif self.curr_char in '()':
+                yield self.handle_parentheses()
             elif self.curr_char == '|':
                 yield Token(TokenType.OR, '|')
-
                 self.next()
-
-                if self.curr_char != None and self.curr_char not in '()':
-                    yield Token(TokenType.LPAR)
-
-                    while self.curr_char != None and self.curr_char not in ')*+':
-                        if self.curr_char in LETTERS:
-                            self.input.add(self.curr_char)
-                            yield Token(TokenType.LETTER, self.curr_char)
-
-                            self.next()
-                            if self.curr_char != None and \
-                                    (self.curr_char in LETTERS or self.curr_char == '('):
-                                yield Token(TokenType.APPEND, '.')
-
-                    if self.curr_char != None and self.curr_char in '*+':
-                        self.rparPending = True
-                    elif self.curr_char != None and self.curr_char == ')':
-                        yield Token(TokenType.RPAR, ')')
-                    else:
-                        yield Token(TokenType.RPAR, ')')
-
-            elif self.curr_char == '(':
-                self.next()
-                yield Token(TokenType.LPAR)
-
-            elif self.curr_char in (')*+'):
-
-                if self.curr_char == ')':
-                    self.next()
-                    yield Token(TokenType.RPAR)
-
-                elif self.curr_char == '*':
-                    self.next()
-                    yield Token(TokenType.KLEENE)
-
-                elif self.curr_char == '+':
-                    self.next()
-                    yield Token(TokenType.PLUS)
-
-
-                if self.rparPending:
-                    yield Token(TokenType.RPAR)
-                    self.rparPending = False
-
-                #para finalizar, se verifica si necesitamos agregar un token append
-                if self.curr_char != None and \
-                        (self.curr_char in LETTERS or self.curr_char == '('):
-                    yield Token(TokenType.APPEND, '.')
-
+            elif self.curr_char in '*+':
+                yield self.handle_repetitions()
             else:
                 raise Exception(f'Invalid entry: {self.curr_char}')
 
         yield Token(TokenType.APPEND, '.')
         yield Token(TokenType.LETTER, '#')
+
+    def handle_parentheses(self):
+        if self.curr_char == '(':
+            self.next()
+            return Token(TokenType.LPAR)
+        elif self.curr_char == ')':
+            self.next()
+            return Token(TokenType.RPAR)
+        else:
+            raise Exception(f'Invalid entry inside parentheses: {self.curr_char}')
+
+    def handle_repetitions(self):
+        token_type = TokenType.KLEENE if self.curr_char == '*' else TokenType.PLUS
+        self.next()
+        return Token(token_type)
+
+
 
     def get_symbols(self):
         return self.input

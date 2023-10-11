@@ -31,8 +31,15 @@ class TestNode(unittest.TestCase):
 
     def test_node_representation(self):
         # Verifica el método __repr__ para asegurar que devuelve una cadena esperada
-        expected_repr1 = f'\n    id: 1\n    value: a\n    firstpos: [1]\n    lastpos: [1]\n    followpos: []\n    nullabe: True\n    '
-        expected_repr2 = f'\n    id: 2\n    value: b\n    firstpos: [2]\n    lastpos: [2]\n    followpos: []\n    nullabe: False\n    '
+        expected_repr1 = (
+        '\n    id: {}\n    value: {}\n    firstpos: {}\n    lastpos: {}\n    followpos: {}\n    nullabe: {}\n    '
+        .format(1, 'a', [1], [1], [], True)
+        )
+        expected_repr2 = (
+        '\n    id: {}\n    value: {}\n    firstpos: {}\n    lastpos: {}\n    followpos: {}\n    nullabe: {}\n    '
+        .format(2, 'b', [2], [2], [], False)
+        )
+    
         self.assertEqual(repr(self.node1), expected_repr1)
         self.assertEqual(repr(self.node2), expected_repr2)
 

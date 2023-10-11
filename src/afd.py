@@ -182,7 +182,8 @@ class DDFA:
 
             try:
                 curr_state = self.trans_func[curr_state][symbol]
-            except:
+                
+            except Exception as e:
                 if curr_state in self.accepting_states and symbol in self.trans_func['A']:
                     curr_state = self.trans_func['A'][symbol]
                 else:

@@ -1,5 +1,5 @@
 from tokens import TokenType
-from nodes import *
+from nodes import Letter, Append, Or, Kleene, Plus
 
 
 class Parser:
@@ -17,11 +17,11 @@ class Parser:
     def new_symbol(self):
         token = self.curr_token
 
-        if token.type == TokenType.LPAR:
+        if token.type == TokenType.RPAR:
             self.next()
             res = self.expression()
-            if self.curr_token.type != TokenType.RPAR:
-                raise Exception('Sin paréntesis derecho para la expresión!')
+            if self.curr_token.type != TokenType.LPAR:
+                raise Exception('Sin derecho para la expresión!')
 
             self.next()
             return res
@@ -41,8 +41,12 @@ class Parser:
             elif self.curr_token.type == TokenType.PLUS:
                 self.next()
                 res = Plus(res)
+            else:
+                # Añade esta parte para manejar errores si encuentras un operador desconocido
+                raise Exception('Operador desconocido: {}'.format(self.curr_token.type))
 
         return res
+
 
     def term(self):
         res = self.factor()
@@ -58,7 +62,7 @@ class Parser:
         res = self.term()
 
         while self.curr_token != None and \
-                self.curr_token.type == TokenType.OR:
+                self.curr_token.type == TokenType.OR or TokenType.APPEND :
             self.next()
             res = Or(res, self.term())
 

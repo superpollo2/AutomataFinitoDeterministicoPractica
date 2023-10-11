@@ -82,9 +82,9 @@ def gen_afd():
         messagebox.showinfo("Advertencia", "Campo vacio\npor favor corrijalo")
     if regu_expresion.get() != '':
         valid = ValidExpresion(regu_expresion.get())
-        valid.ntE()
+        valid.nt_e()
         
-        errors = valid.listError()
+        errors = valid.list_error()
         if len(errors):
             print("La expresión es inválida. Errores encontrados:")
             for error in errors:

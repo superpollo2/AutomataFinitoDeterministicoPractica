@@ -1,9 +1,9 @@
 LETTERS = 'abcdefghijklmnopqrstuvwxyz0123456789'
 
-errorList = []
+error_list = []
 
 class ValidExpresion:
-    global errorList
+    global error_list
     def __init__(self, string: str):
         print(string)
         self.string = iter(string.replace(' ', ''))
@@ -52,23 +52,21 @@ class ValidExpresion:
             if (self.curr_char == ')'):
                 self.next()
             else:
-                errorList.append("Se esperaba un ')' después de una expresión.")
+                error_list.append("Se esperaba un ')' después de una expresión.")
         elif (self.curr_char in LETTERS):
             self.next()
             self.nt_mod()
         else:
-            errorList.append("Se esperaba un '(' o una letra o número.")
+            error_list.append("Se esperaba un '(' o una letra o número.")
 
 
     def nt_mod(self):
-        if(self.curr_char == '*'):
+        if self.curr_char == '*' or self.curr_char == '+':
             self.next()
-        elif(self.curr_char == '+'):
-            self.next()
-
+        
 
     def list_error(self):
-        return errorList
+        return error_list
 
 
     

@@ -30,11 +30,11 @@ class Reader:
                 self.next()
 
             elif self.curr_char == '(':
-                yield Token(TokenType.LPAR, self.curr_char)
+                yield Token(TokenType.RPAR, self.curr_char)
                 self.next()
 
             elif self.curr_char == ')':
-                yield Token(TokenType.RPAR, self.curr_char)
+                yield Token(TokenType.LPAR, self.curr_char)
                 self.next()
 
             elif self.curr_char == '.':
