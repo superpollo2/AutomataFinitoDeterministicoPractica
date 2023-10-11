@@ -10,7 +10,7 @@ class DirectReader:
         self.string = iter(string.replace(' ', ''))
         self.string = iter(string.replace('.',''))
         self.input = set()
-        self.rparPending = False
+        self.rpar_pending = False
         self.next()
 
     def next(self):
@@ -47,7 +47,7 @@ class DirectReader:
             self.next()
             return Token(TokenType.RPAR)
         else:
-            raise Exception(f'Invalid entry inside parentheses: {self.curr_char}')
+            raise UnknownOperatorError(self.curr_char)
 
     def handle_repetitions(self):
         token_type = TokenType.KLEENE if self.curr_char == '*' else TokenType.PLUS

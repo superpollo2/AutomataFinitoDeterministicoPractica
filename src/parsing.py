@@ -24,7 +24,7 @@ class Parser:
             self.next()
             res = self.expression()
             if self.curr_token.type != TokenType.LPAR:
-                raise Exception('Sin derecho para la expresión!')
+                raise UnknownOperatorError(self.curr_token)
 
             self.next()
             return res

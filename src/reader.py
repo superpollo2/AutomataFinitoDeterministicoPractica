@@ -1,5 +1,5 @@
 from tokens import Token, TokenType
-
+from parsing import UnknownOperatorError
 LETTERS = 'abcdefghijklmnopqrstuvwxyz01234567890'
 
 class Reader:
@@ -42,9 +42,9 @@ class Reader:
                 if self.curr_char and self.curr_char in LETTERS + '(':
                     yield Token(TokenType.APPEND, '.')
                 else:
-                    raise Exception(f'Invalid input: {self.curr_char}')
+                    raise UnknownOperatorError(self.curr_char)
             else:
-                raise Exception(f'Invalid input: {self.curr_char}')
+                raise UnknownOperatorError(self.curr_char)
 
     def get_symbols(self):
         return self.input
