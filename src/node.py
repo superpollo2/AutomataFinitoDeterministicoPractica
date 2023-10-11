@@ -9,12 +9,4 @@ class Node:
         self.c1 = c1
         self.c2 = c2
 
-    def __repr__(self):
-        return f'''
-    id: {self._id}
-    value: {self.value}
-    firstpos: {self.firstpos}
-    lastpos: {self.lastpos}
-    followpos: {self.followpos}
-    nullabe: {self.nullable}
-    '''
+    
